@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  --dark-gray: #181c1f;
+  --tan: #959597;
+  --dark-tan: #57585a;
+
+  --font-one: "Montserrat", serif;
+  --font-two: font-family: "Amiri", serif;
+
+
+  color-scheme: light dark;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
