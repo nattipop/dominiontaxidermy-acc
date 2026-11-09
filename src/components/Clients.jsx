@@ -5,44 +5,54 @@ import { useNavigate } from "react-router";
 const Clients = () => {
   const navigate = useNavigate();
   const [clients, setClients] = React.useState([]);
+  const [filteredClients, setFilteredClients] = React.useState([]);
+  const [currentList, setCurrentList] = React.useState([]);
 
   React.useEffect(() => {
     const fetchClients = async () => {
       try {
         const response = await axios.get("https://domtax-server-d7d364950a8d.herokuapp.com/all-clients");
         setClients(response.data);
+        setCurrentList(clients)
       } catch(err) {
         console.log(err);
       }
     }
     fetchClients();
+    console.log(currentList)
   }, []);
+  
+  React.useEffect(() => {
+    if(filteredClients.length > 0) {
+      setCurrentList(filteredClients)
+    } else {
+      setCurrentList(clients)
+    }
+  }, [filteredClients])
 
-  return clients.length > 0 ? (
+
+  return currentList.length > 0 ? (
     <div id="clients">
       <input id="search-bar" type="text" placeholder="Search clients..." onInput={(e) => {
         const searchTerm = e.target.value.toLowerCase();
         console.log(searchTerm)
 
         if (searchTerm === "") {
-          navigate(0)
+          setCurrentList(clients)
         };
 
-        const filteredClients = clients.filter(client => {
+        const newClients = clients.filter(client => {
           const name = client.first_name.toLowerCase() + client.last_name.toLowerCase();
 
           return name.includes(searchTerm);
         });
 
-        if(filteredClients.length === 0) {
-          navigate(0)
-        }
-
-        setClients(filteredClients);
+        setFilteredClients(newClients);
+        setCurrentList(filteredClients)
       }} />
       <button id="add-client-button" onClick={() => navigate("/add-client")}>Add Client</button>
       <ul className="client-list">
-        {clients.map(client => (
+        {currentList.map(client => (
           <li className="client-item" key={client.client_id} onClick={() => navigate(`/client/${client.client_id}`)}>
             <img className="client-icon" src="https://png.pngtree.com/png-vector/20220411/ourmid/pngtree-person-icon-in-flat-style-man-symbol-worker-people-care-vector-png-image_45189836.jpg" alt="client icon" />
             <h2>{client.first_name} {client.last_name}</h2>

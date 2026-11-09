@@ -35,6 +35,8 @@ const SeeClient = () => {
     }
     const fileData = {...data, file_id: file_id, balance: balance, client_id: client_id};
 
+    console.log(fileData)
+
     try {
         const response = await axios.post("https://domtax-server-d7d364950a8d.herokuapp.com/new-file", fileData);
     } catch(err) {
@@ -62,16 +64,16 @@ const SeeClient = () => {
       <form id="add-file-form" onSubmit={handleSubmit}>
         <label>
           Date:
-          <input type="date" name="file_name" />
+          <input type="date" name="file_name" required />
         </label>
         <label>
-          <textarea placeholder="Enter info here..." type="text" name="body" />
+          <textarea placeholder="Enter info here..." type="text" name="body" required />
         </label>
         <label>
-          $<input placeholder="Total Due" type="number" name="total_due" />
+          $<input placeholder="Total Due" type="number" name="total_due" required />
         </label>
         <label>
-          $<input placeholder="Downpayment" type="number" name="total_paid" />
+          $<input placeholder="Downpayment" type="number" name="total_paid" required />
         </label>
         <button type="submit">Add File</button>
       </form>

@@ -25,16 +25,16 @@ const AddClient = () => {
       <h1>New Client</h1>
       <form id="add-client-form" onSubmit={handleSubmit}>
         <label>
-          <input placeholder="First Name" type="text" name="first_name" />
+          <input placeholder="First Name" type="text" name="first_name" required />
         </label>
         <label>
-          <input placeholder="Last Name" type="text" name="last_name" />
+          <input placeholder="Last Name" type="text" name="last_name" required />
         </label>
         <label>
           <input placeholder="Email" type="email" name="email" />
         </label>
         <label>
-          <input placeholder="Phone" type="tel" name="phone" />
+          <input placeholder="Phone" type="tel" name="phone" required />
         </label>
         <label>
           <textarea placeholder="Address" name="address"></textarea>
