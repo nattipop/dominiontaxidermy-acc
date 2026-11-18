@@ -80,26 +80,21 @@ p {
     background-color:  #262a2d;
     width: 100%;
     text-align: center;
-}
-
-#nav ul {
     display: flex;
     flex-direction: row;
-    justify-content: center;    
+    align-items: center;
+    justify-content: center;
 }
 
 #nav h2 {
     border: 1px solid var(--light-gray);
-}
 
-#nav ul li {
-    list-style: none;
-    margin: 0px 30px;
 }
 
 #nav a {
     color: var(--light-gray);
     text-decoration: none;
+    padding: 30px 20px;
 }
 
 #nav a:hover {
@@ -179,4 +174,14 @@ li:hover {
     background-color: #262a2d;
     outline: none;
     margin-top: 60px;
+}
+
+#year-review {
+    padding: 50px;
+}
+
+#totals-years {
+    list-style: none;
+    padding: 0px;
+    text-decoration: underline;
 }

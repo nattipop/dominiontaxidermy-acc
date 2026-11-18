@@ -35,8 +35,6 @@ const SeeClient = () => {
     }
     const fileData = {...data, file_id: file_id, balance: balance, client_id: client_id};
 
-    console.log(fileData)
-
     try {
         const response = await axios.post("https://domtax-server-d7d364950a8d.herokuapp.com/new-file", fileData);
     } catch(err) {
@@ -52,13 +50,20 @@ const SeeClient = () => {
         })
         .catch(err => console.log(err));
     }
-}
+  }
+
+  const displayPhone = (phoneString) => {
+    const match = phoneString.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+    return `(${match[1]}) ${match[2]}-${match[3]}`;
+  }
 
   return client ? (
     <div id="see-client">
+      <button className="back-button" onClick={() => navigate(-1)}>Back</button>
       <h1>{client.first_name} {client.last_name}</h1>
       <p>Email: {client.email}</p>
-      <p>Phone: {client.phone}</p>
+      <p>Phone: {displayPhone(client.phone)}</p>
       <p>Address: {client.address}</p>
       <p>Client Since: {new Date(client.client_since).toLocaleDateString()}</p>
       <form id="add-file-form" onSubmit={handleSubmit}>
@@ -100,6 +105,7 @@ const SeeClient = () => {
     </div>
   ) : (
     <div>
+      <button className="back-button" onClick={() => navigate(-1)}>Back</button>
       <h1>Client not found</h1>
     </div>
   )

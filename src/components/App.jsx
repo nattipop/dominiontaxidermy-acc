@@ -4,6 +4,8 @@ import Clients from './Clients'
 import AddClient from './AddClient'
 import SeeClient from './SeeClient'
 import SeeFile from './SeeFile'
+import Totals from './Totals'
+import YearReview from './YearReview'
 import '../styles/App.css'
 import { Link } from "react-router-dom";
 
@@ -16,11 +18,22 @@ function App() {
         <img id="logo" src="https://res.cloudinary.com/dawteptkh/image/upload/v1745682273/Dominiontaxidermy/DTwhitecircle_cen486.png" alt="logo" />
         <div id="nav">
             <Link to="/"><h2>Clients</h2></Link>
+            <Link to="/totals"><h2>Totals</h2></Link>
         </div>
         <Routes>
           <Route path="/" element={
             <React.Suspense fallback={<img className="loading" src={loading_img} />}>
               <Clients />
+            </React.Suspense>
+          } />
+          <Route path="/totals" element={
+            <React.Suspense fallback={<img className="loading" src={loading_img} />}>
+              <Totals />
+            </React.Suspense>
+          } />
+          <Route path="/totals/:year" element={
+            <React.Suspense fallback={<img className="loading" src={loading_img} />}>
+              <YearReview />
             </React.Suspense>
           } />
           <Route path="/add-client" element={

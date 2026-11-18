@@ -50,6 +50,7 @@ const Clients = () => {
     <div id="clients">
       <input id="search-bar" type="text" placeholder="Search clients..." onChange={searchClients} onKeyUp={searchClients} />
       <button id="add-client-button" onClick={() => navigate("/add-client")}>Add Client</button>
+      <p>Showing {currentList.length} Clients</p>
       <ul className="client-list">
         {currentList.map(client => (
           <li className="client-item" key={client.client_id} onClick={() => navigate(`/client/${client.client_id}`)}>
