@@ -5,18 +5,35 @@ import axios from 'axios';
 const SeeFile = () => {
     const { date } = useParams();
     const [file, setFile] = React.useState(null);
+    const [client, setClient] = React.useState(null);
+    
+    const fetchFile = async () => {
+        try {
+            const response = await axios.get(`https://domtax-server-d7d364950a8d.herokuapp.com/file/${date}`);
+            setFile(response.data);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const fetchClient = async () => {
+        try {
+            const response = await axios.get(`https://domtax-server-d7d364950a8d.herokuapp.com/client_by_id/${file.client_id}`);
+            setClient(response.data);
+        } catch(err) {
+            console.log(err);
+        }
+    }
 
     React.useEffect(() => {
-        const fetchFile = async () => {
-            try {
-                const response = await axios.get(`https://domtax-server-d7d364950a8d.herokuapp.com/file/${date}`);
-                setFile(response.data);
-            } catch(err) {
-                console.log(err);
-            }
-        }
         fetchFile();
     }, [date]);
+
+    React.useEffect(() => {
+        if (file != null) {
+            fetchClient()
+        }
+    }, [file])
 
     const handleAddPayment = async (paymentAmount) => {
         if (!file) return;
@@ -40,10 +57,11 @@ const SeeFile = () => {
         }
     }
 
-    return file ? (
-        <div>
+    return file && client ? (
+        <div id="file-div">
             <button className="back-button" onClick={() => window.history.back()}>Back</button>
             <h1>{file.file_name}</h1>
+            <h2>Client: {client.first_name + client.last_name}</h2>
             <p>{file.body}</p>
             <p>Total Due: ${file.total_due.toFixed(2)}</p>
             <p>Total Paid: ${file.total_paid.toFixed(2)}</p>

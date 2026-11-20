@@ -6,6 +6,7 @@ import SeeClient from './SeeClient'
 import SeeFile from './SeeFile'
 import Totals from './Totals'
 import YearReview from './YearReview'
+import YearBreakdown from './YearBreakdown'
 import '../styles/App.css'
 import { Link } from "react-router-dom";
 
@@ -34,6 +35,11 @@ function App() {
           <Route path="/totals/:year" element={
             <React.Suspense fallback={<img className="loading" src={loading_img} />}>
               <YearReview />
+            </React.Suspense>
+          } />
+          <Route path="/totals/:year/breakdown" element={
+            <React.Suspense fallback={<img className="loading" src={loading_img} />}>
+              <YearBreakdown />
             </React.Suspense>
           } />
           <Route path="/add-client" element={

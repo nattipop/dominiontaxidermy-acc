@@ -83,7 +83,7 @@ const SeeClient = () => {
         <button type="submit">Add File</button>
       </form>
       <div>
-        <h3>History</h3>
+        <h3>Work Orders</h3>
         <ul id="file-list">
           {client.files.map((file, index) => (
             <li key={index} onClick={() => {

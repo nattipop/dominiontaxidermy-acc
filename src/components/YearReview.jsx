@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useNavigationType } from "react-router-dom";
+import { useParams, useNavigate, useNavigationType, Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -6,6 +6,7 @@ const YearReview = () => {
     const navigate = useNavigate();
     const {year} = useParams();
     const [files, setFiles] = useState([]);
+    const [clients, setClients] = useState([]);
     const [yearIncome, setYearIncome] = useState(0);
     const [unpaidBalances, setUnpaidBalances] = useState(0);
 
@@ -22,6 +23,22 @@ const YearReview = () => {
             console.log(err);
         }
     };
+
+    const fetchClients = async () => {
+        try {
+            const response = await axios.get(`https://domtax-server-d7d364950a8d.herokuapp.com/all-clients`);
+
+            const clientsByYear = response.data.filter(client => {
+                const date = new Date(client.client_since);
+
+                return date.getFullYear().toString() === year;
+            })
+
+            setClients(clientsByYear)
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     const fetchNumbers = () => {
         if (files.length > 0) {
@@ -40,6 +57,7 @@ const YearReview = () => {
 
     useEffect(() => {
         fetchFiles()
+        fetchClients()
     }, [])
 
     useEffect(() => {
@@ -49,9 +67,11 @@ const YearReview = () => {
 
     return files.length > 0 ? (
         <div id="year-review">
-            <button onClick={() => navigate(-1)}>Back</button>
+            <button onClick={() => navigate(`/totals`)}>Back</button>
+            <h3 id="year-breakdown-link" onClick={() => navigate(`/totals/${year}/breakdown`)}>View Breakdown</h3>
             <h1>{year} Income: ${yearIncome.toLocaleString()}.00</h1>
             <h1>{year} Unpaid Invoices: ${unpaidBalances.toLocaleString()}.00</h1>
+            <h1>{clients.length} new clients in {year}</h1>
         </div>
     ) : (
         <div id="year-review">

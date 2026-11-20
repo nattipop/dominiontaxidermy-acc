@@ -125,6 +125,12 @@ p {
     padding: 0px 20px;
 }
 
+.client-item:hover {
+    cursor: pointer;
+    background-color: var(--dark-gray);
+    outline: 1px var(--tan) solid;
+}
+
 .client-icon {
     width: 30px;
     height: 30px;
@@ -134,7 +140,8 @@ p {
 }
 
 #see-client {
-    min-width: 400px;
+    width: 80vw;
+    padding: 20px;
 }
 
 #file-list {
@@ -158,7 +165,7 @@ li:hover {
 }
 
 #search-bar {
-    width: 400px;
+    width: 80%;
     margin: 50px;
     height: 30px;
 }
@@ -184,4 +191,34 @@ li:hover {
     list-style: none;
     padding: 0px;
     text-decoration: underline;
+}
+
+#year-breakdown-link {
+    color: white;
+    text-decoration: underline;
+    font-family: var(--font-one);
+    font-size: 15px;
+}
+
+#year-breakdown-link:hover {
+    color: var(--tan);
+    cursor: pointer;
+}
+
+#file-div {
+    padding: 50px;
+}
+
+@media (max-width: 930px) {
+    #menu {
+        width: 90vw;
+        margin: 50px 0px;
+    }
+
+    .client-list {
+        grid-template-columns: repeat(auto-fit, minmax(100x, 1fr));
+        width: 80vw;
+        margin: 0px;
+        text-align: center;
+    }
 }
